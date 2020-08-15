@@ -18,7 +18,6 @@ async function bootstrap() {
   await app.listen(process.env.SERVER_PORT || 3000);
 
   const apiFetch = new ApiFetch();
-  await apiFetch.getClients();
-  await apiFetch.getShoppingHistory();
+  await apiFetch.handleCron();
 }
 bootstrap();

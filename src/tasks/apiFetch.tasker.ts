@@ -4,26 +4,21 @@ import { HttpApi } from '../helpers/http.api';
 import { ShoppingHistory } from 'src/interfaces/shoppingHistory.interface';
 import { Client } from 'src/interfaces/clients.interface';
 import { File } from '../helpers/file';
+import { ClientsFactory } from '../clients/clients.factory';
 
 @Injectable()
 export class ApiFetch {
   private readonly logger = new Logger(ApiFetch.name);
   private httpApi = new HttpApi();
   private file = new File();
+  private clientsFactory = new ClientsFactory();
 
   @Cron('0 0 * * *')
-  handleCron() {
-    this.getClients();
-    this.getShoppingHistory();
-  }
-
-  async getClients() {
+  async handleCron() {
     const clients: Array<Client> = await this.httpApi.retrieveClients();
-    return this.file.saveFile('clients', clients);
-  }
-
-  async getShoppingHistory() {
     const shoppingHistory: Array<ShoppingHistory> = await this.httpApi.retrieveShoppingHistory();
-    return this.file.saveFile('shoppingHistory', shoppingHistory);
+    const clientsShoppingHistory = this.clientsFactory.intercalateData(clients, shoppingHistory);
+
+    return this.file.saveFile('clientsShopping', clientsShoppingHistory);
   }
 }

@@ -10,8 +10,7 @@ export class LoggingInterceptor implements NestInterceptor {
     const loggerFactory = new LoggerFactory();
     const { url, method, body, statusCode } = loggerFactory.extractLoggerData(context.getArgs());
 
-    console.log(`CALLED ${method.toUpperCase()} - ${url} `);
-    console.log(`STATUS - ${statusCode} `)
+    console.log(`[API CALL] ${method.toUpperCase()} ${url} - STATUS - ${statusCode} - AT ${Date()} `);
 
     return next
       .handle()
