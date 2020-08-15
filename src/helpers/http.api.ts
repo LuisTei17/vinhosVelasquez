@@ -6,12 +6,24 @@ import { ShoppingHistory } from 'src/interfaces/shoppingHistory.interface';
 export class HttpApi {
 
     async retrieveClients (): Promise<Array<Client>> {
-        const response = await axios.get(CLIENTS_API_URL);
-        return response.data;
+        try {
+
+            const response = await axios.get(CLIENTS_API_URL);
+            return response.data;
+        } catch (error) {
+            console.error(`[ERROR] fetching clients data - ${Date()}`)
+            console.log(error)   
+        }
     }
 
     async retrieveShoppingHistory(): Promise<Array<ShoppingHistory>> {
-        const response = await axios.get(SHOPPING_HISTORY_API_URL);
-        return response.data;
+        try {
+
+            const response = await axios.get(SHOPPING_HISTORY_API_URL);
+            return response.data;
+        } catch (error) {
+            console.error(`[ERROR] fetching shopping history data - ${Date()}`)
+            console.log(error)   
+        }
     }
 }
