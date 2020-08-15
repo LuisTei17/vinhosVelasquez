@@ -11,7 +11,7 @@ export class ApiFetch {
   private httpApi = new HttpApi();
   private file = new File();
 
-  @Cron('0 12 * * *')
+  @Cron('0 0 * * *')
   handleCron() {
     this.getClients();
     this.getShoppingHistory();
