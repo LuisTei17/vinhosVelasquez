@@ -1,5 +1,5 @@
 export interface Client {
-    "id": Number;
-    "nome": String;
-    "cpf": String;
+    "id": number;
+    "nome": string;
+    "cpf": string;
 }

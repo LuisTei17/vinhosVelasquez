@@ -1,17 +1,21 @@
 
 interface Item {
-    "produto": String;
-    "variedade": String;
-    "pais": String;
-    "categoria": String;
-    "safra": String;
-    "preco": Number;
+    "produto": string;
+    "variedade": string;
+    "pais": string;
+    "categoria": string;
+    "safra": string;
+    "preco": number;
 }
 
 export interface ShoppingHistory {
-    "codigo": String;
-    "data": String;
-    "cliente": String;
+    "codigo": string;
+    "data": string;
+    "cliente": string;
     "itens": Array<Item>;
-    "valorTotal": Number;
+    "valorTotal": number;
+    "cpf"?: string;
+    "invalid"?: boolean;
+    "nome"?: string;
+    "idCliente"?: number;
 }
