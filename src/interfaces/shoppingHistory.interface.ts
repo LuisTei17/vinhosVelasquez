@@ -18,4 +18,5 @@ export interface ShoppingHistory {
     "invalid"?: boolean;
     "nome"?: string;
     "idCliente"?: number;
+    "count"?: number;
 }
