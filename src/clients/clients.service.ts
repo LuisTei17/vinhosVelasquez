@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { File } from '../helpers/file';
 import { ClientsFactory } from './clients.factory';
-import { ShoppingHistory } from 'src/interfaces/shoppingHistory.interface';
+import { ShoppingHistory, Item } from 'src/interfaces/shoppingHistory.interface';
 
 @Injectable()
 export class ClientsService {
@@ -22,5 +22,10 @@ export class ClientsService {
     async getLoyalCustomers(): Promise<Array<ShoppingHistory>> {
         const clientsShopping = await this.file.retrieveFileData(this.FILE_NAME);
         return this.clientsFactory.getLoyalCustomers(clientsShopping);
+    }
+
+    async getWineRecommendation(id: number): Promise<Item> {
+        const clientsShopping = await this.file.retrieveFileData(this.FILE_NAME);
+        return this.clientsFactory.getWineRecommendation(clientsShopping, id);
     }
 }

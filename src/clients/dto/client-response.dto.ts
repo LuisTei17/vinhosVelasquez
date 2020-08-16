@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ShoppingHistory } from 'src/interfaces/shoppingHistory.interface';
+import { ShoppingHistory, Item } from 'src/interfaces/shoppingHistory.interface';
 
 export class ClientsResponseDto {
   @ApiProperty({
@@ -25,6 +25,55 @@ export class ClientsResponseDto {
     instance.name = clientShopping.nome;
     instance.totalValue = clientShopping.valorTotal;
     instance.cpf = clientShopping.cliente
+    return instance;
+  }
+}
+
+export class WineRecommendationResponseDto {
+  @ApiProperty({
+    description: 'Produto',
+    example: 'Avondale',
+  })
+  produto: string;
+  
+  @ApiProperty({
+    description: 'Variedade',
+    example: 'Muscat de Frontignon',
+  })
+  variedade: string;
+  
+  @ApiProperty({
+    description: 'Pais',
+    example: 'Africa do Sul',
+  })
+  pais: string;
+  
+  @ApiProperty({
+    description: 'Categoria',
+    example: 'Rosé',
+  })
+  categoria: string;
+  
+  @ApiProperty({
+    description: 'Safra',
+    example: '2010',
+  })
+  safra: string;
+  
+  @ApiProperty({
+    description: 'Preço',
+    example: 66.8,
+  })
+  preco: number;
+
+  static newInstance(item: Item) {
+    const instance = new WineRecommendationResponseDto();
+    instance.produto = item.produto;
+    instance.variedade = item.variedade;
+    instance.pais = item.pais;
+    instance.categoria = item.categoria;
+    instance.safra = item.safra;
+    instance.preco = item.preco;
     return instance;
   }
 }
