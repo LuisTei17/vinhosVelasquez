@@ -7,9 +7,20 @@ import { ShoppingHistory } from 'src/interfaces/shoppingHistory.interface';
 export class ClientsService {
     private file = new File();
     private clientsFactory = new ClientsFactory();
+    private FILE_NAME = 'clientsShopping'
 
     async getClientsByPurchaseValue(): Promise<Array<ShoppingHistory>> {
-        const clientsShopping = await this.file.retrieveFileData('clientsShopping');
+        const clientsShopping = await this.file.retrieveFileData(this.FILE_NAME);
         return this.clientsFactory.sortClientsByPurchaseValue(clientsShopping)
+    }
+
+    async getBiggerPurchaseClient(year: string): Promise<ShoppingHistory> {
+        const clientsShopping = await this.file.retrieveFileData(this.FILE_NAME);
+        return this.clientsFactory.getBiggerPurchaseClient(clientsShopping, year)
+    }
+
+    async getLoyalCustomers(): Promise<Array<ShoppingHistory>> {
+        const clientsShopping = await this.file.retrieveFileData(this.FILE_NAME);
+        return this.clientsFactory.getLoyalCustomers(clientsShopping);
     }
 }
