@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ShoppingHistory } from 'src/interfaces/shoppingHistory.interface';
 
 export class ClientsParamsDto {
   @ApiProperty({
@@ -7,4 +6,12 @@ export class ClientsParamsDto {
     example: '2016',
   })
   year: string;
+}
+
+export class WinesParamsDto {
+  @ApiProperty({
+    description: 'Id do cliente',
+    example: 4,
+  })
+  id: number;
 }

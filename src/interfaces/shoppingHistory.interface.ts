@@ -1,5 +1,5 @@
 
-interface Item {
+export interface Item {
     "produto": string;
     "variedade": string;
     "pais": string;

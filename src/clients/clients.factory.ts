@@ -1,5 +1,5 @@
 import { Client } from "src/interfaces/clients.interface";
-import { ShoppingHistory } from "src/interfaces/shoppingHistory.interface";
+import { ShoppingHistory, Item } from "src/interfaces/shoppingHistory.interface";
 import { ClientsResponseDto } from "./dto/client-response.dto";
 import { group } from "console";
 
@@ -123,5 +123,34 @@ export class ClientsFactory {
         });
 
         return this.groupSalesByClient(loyalCustomers);
+    }
+
+    getWineRecommendation(clientsShopping: Array<ShoppingHistory>, id: number): Item {
+        const wines: Array<Array<Item>> = clientsShopping.map(clientShopping => clientShopping.itens);
+        const flattenedWines: Array<Item> = [].concat.apply([], wines);
+
+        let wineVariations: Array<any> = [];
+
+
+        flattenedWines.forEach(wine => {
+            let foundVariation = wineVariations.find(wineVariation => wineVariation.count === wine.variedade);
+
+            if (!foundVariation)
+                wineVariations.push({variety: wine.variedade, count: 0});
+        });
+        const filteredClientsShoppings = clientsShopping.filter(client => client.idCliente === Number(id));
+
+        const purchasedItens = [].concat.apply([], filteredClientsShoppings.map(shopping => shopping.itens));
+        purchasedItens.forEach(item => {
+            wineVariations = wineVariations.map(wine => {
+                if (wine.variety === item.variedade)
+                    wine.count += 1;
+                return wine;
+            });
+        });
+
+        const mostPurchasedVariation = wineVariations.sort((prev, curr) => curr.count -prev.count)[0];
+
+        return purchasedItens.find(item => item.variedade === mostPurchasedVariation.variety);
     }
 }
